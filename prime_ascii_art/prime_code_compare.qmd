@@ -1,0 +1,216 @@
+```{python}
+from itertools import islice
+import math
+import time
+from typing import Iterator, List, Optional, Set
+import multiprocessing as mp
+from sympy import isprime
+import logging
+from primify import console
+
+logger = logging.getLogger(__file__)
+
+
+class NextPrimeFinder:
+    def __init__(self, value: int, n_workers: int = 1):
+        self.value = int(value)
+        self.n_workers = n_workers
+        self.expected_n_primality_tests = max(10, int(math.log(value)))
+
+    def prime_candidates(self) -> Iterator[int]:
+        candidate = self.value
+        while True:
+            if candidate % 6 in [1, 5]:
+                yield candidate
+            candidate += 1
+
+    @staticmethod
+    def is_prime_worker(candidate: int, found_prime) -> Optional[int]:
+        if not found_prime.is_set():
+            if isprime(candidate):
+                logger.info(f"{candidate} is prime!")
+                found_prime.set()
+                return candidate
+
+        logger.debug(
+            f"Checking of {candidate} skipped since we already found the next prime"
+        )
+        return
+
+    def find_next_prime(self) -> int:
+
+        with mp.Pool(self.n_workers) as pool:
+            manager = mp.Manager()
+            found_prime = manager.Event()
+            candidate_iter = (
+                (candidate, found_prime) for candidate in self.prime_candidates()
+            )
+
+            results: Set[Optional[int]] = set()
+            search_start = time.time()
+            while not found_prime.is_set():
+                console.log(
+                    f"Performing batch of ~{self.expected_n_primality_tests} primality tests. We rarely need more than one batch.",
+                )
+                result = pool.starmap(
+                    NextPrimeFinder.is_prime_worker,
+                    islice(candidate_iter, self.expected_n_primality_tests),
+                )
+
+                results |= set(result)
+
+            console.log(
+                f"Got one! Next prime was found within {int(time.time()- search_start) + 1}s"
+            )
+            pool.terminate()
+
+            for result in results:
+                # all but the prime are None
+                if result is not None:
+                    return result
+        return -1
+```
+
+```{r chatgpt python translation}
+
+library(parallel)
+library(sympy)
+library(primify)
+library(iterators)
+
+NextPrimeFinder <- function(value, n_workers = 1) {
+  expected_n_primality_tests <- max(10, as.integer(log(value)))
+  
+  prime_candidates <- function() {
+    candidate <- value
+    while (TRUE) {
+      if (candidate %% 6 %in% c(1, 5)) {
+        yield(candidate)
+      }
+      candidate <- candidate + 1
+    }
+  }
+  
+  is_prime_worker <- function(candidate, found_prime) {
+    if (!found_prime$is_set()) {
+      if (isprime(candidate)) {
+        message(paste(candidate, "is prime!"))
+        found_prime$set()
+        return(candidate)
+      }
+    }
+    message(paste("Checking of", candidate, "skipped since we already found the next prime"))
+    return(NULL)
+  }
+  
+  find_next_prime <- function() {
+    cl <- makeCluster(n_workers)
+    clusterEvalQ(cl, {
+      library(sympy)
+      library(primify)
+    })
+    
+    manager <- new.env()
+    found_prime <- new("Event", manager)
+    candidate_iter <- izip(prime_candidates(), rep(found_prime, expected_n_primality_tests))
+    
+    results <- set()
+    search_start <- Sys.time()
+    while (!found_prime$is_set()) {
+      message(paste("Performing batch of ~", expected_n_primality_tests, "primality tests. We rarely need more than one batch."))
+      result <- clusterApply(cl, as.list(islice(candidate_iter, expected_n_primality_tests)), function(x) {
+        is_prime_worker(x[[1]], x[[2]])
+      })
+      
+      results <- results | set(result)
+    }
+    
+    message(paste("Got one! Next prime was found within", as.integer(Sys.time() - search_start) + 1, "s"))
+    stopCluster(cl)
+    
+    for (result in results) {
+      if (!is.null(result)) {
+        return(result)
+      }
+    }
+    return(-1)
+  }
+  
+  return(list(find_next_prime = find_next_prime))
+}
+
+# Usage example
+next_prime_finder <- NextPrimeFinder(100)
+next_prime <- next_prime_finder$find_next_prime()
+print(next_prime)
+```
+
+Note that the `primify` library used in the Python code is not available in R, so you may need to find an alternative implementation or modify the code accordingly to achieve the desired functionality.
+
+ChatGPT attempt to write original R code  
+```{r}
+library(parallel)
+
+is_prime <- function(n) {
+  if (n <= 1) {
+    return(FALSE)
+  }
+  
+  if (n %% 2 == 0) {
+    return(n == 2)
+  }
+  
+  i <- 3
+  while (i * i <= n) {
+    if (n %% i == 0) {
+      return(FALSE)
+    }
+    i <- i + 2
+  }
+  
+  return(TRUE)
+}
+
+find_next_n_primes <- function(n, n_workers = 1) {
+  prime_worker <- function(start, end) {
+    primes <- vector(mode = "integer", length = end - start + 1)
+    count <- 0
+    candidate <- start
+    
+    while (count < length(primes)) {
+      if (is_prime(candidate)) {
+               count <- count + 1
+        primes[count] <- candidate
+      }
+      candidate <- candidate + 1
+    }
+    
+    return(primes)
+  }
+  
+  primes <- vector(mode = "integer", length = n)
+  
+  cl <- makeCluster(n_workers)
+  clusterExport(cl, "is_prime")
+  
+  chunk_size <- ceiling(n / n_workers)
+  starts <- seq(from = 2, by = chunk_size, length.out = n_workers)
+  ends <- pmin(starts + chunk_size - 1, n)
+  
+  result <- clusterMap(cl, prime_worker, starts, ends)
+  stopCluster(cl)
+  
+  for (i in seq_along(result)) {
+    primes[((i - 1) * chunk_size + 1):(i * chunk_size)] <- result[[i]]
+  }
+  
+  return(primes)
+}
+
+# Usage example
+n <- 10
+n_workers <- 4
+primes <- find_next_n_primes(n, n_workers)
+print(primes)
+```
+

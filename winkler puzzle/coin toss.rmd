@@ -1,0 +1,46 @@
+---
+title: "Winkler Puzzles"
+output: html_notebook
+---
+
+Two people are tossing biased coins. They pick one side to start, stick with it and bet $1 a toss with $100 to start. Susan happened to pick the favorable bias, Bob, the unfavorable.  Is we assume that Susan, with the favorable pick, "goes bust"  who is likely to bust first.
+
+```{r}
+library(tidyverse)
+susan_prob <- 0.51
+bob_prob <- 1 - susan_prob
+stake <- 100
+
+toss_limit = 10000
+
+play_a_round <- function(coin_prob){
+cum_result <- stake
+for (n in 1:toss_limit){
+  result <- sample(c(1,-1),size=1,replace = TRUE,prob = c(coin_prob,1 - coin_prob))
+  cum_result <- cum_result + result
+  if (cum_result == -1) {
+    break
+  }
+}
+  return(n)
+}
+```
+
+Bob Plays
+
+```{r}
+bust_time = 0
+bust_count = 0
+round_count = 100
+for (i in 1:round_count){
+  tosses <- play_a_round(bob_prob)
+  if (tosses < toss_limit){
+    bust_time <- bust_time + tosses
+    bust_count <- bust_count + 1
+  }
+}
+print(paste0("Busts in ",round_count," rounds: ",bust_count))
+print(paste0("Average flips to bust: ",round(bust_time/bust_count)))
+
+```
+

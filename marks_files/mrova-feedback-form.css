@@ -1,0 +1,55 @@
+
+label {
+	display:block; 
+	padding-bottom:5px; 
+	margin-top:20px;
+}
+
+#mrova-feedback{
+	display: hidden;
+	width: 420px;
+	position: fixed;
+	right: -462px;
+	border: 1px solid #3cb58c;
+	padding: 8px 20px;
+	background-color: #fff;
+	z-index: 9999;
+}
+
+
+#mrova-contactform ul {
+	margin: 0;
+	padding: 0;
+	
+}
+
+#mrova-contactform input, #mrova-contactform textarea{
+width: 400px;
+padding: 10px;
+border: 1px solid #ccc;
+}
+
+#mrova-contactform ul li {
+	list-style:none; 
+	padding-bottom:20px;
+}
+
+
+#mrova-img-control{
+	cursor: pointer;
+	
+position: absolute;
+left: -52px;
+width: 52px;
+background: transparent url('//rxcanada4less.com/feedback_buttons/feedback.png');
+height: 225px;
+}
+#mrova-contactform #mrova-sendbutton {
+	width:60px;
+	background:#db4f4a; color:#fff; 
+	cursor:pointer;
+	padding:5px 10px; 
+	border: none;
+}
+
+.antispam { display:none;}

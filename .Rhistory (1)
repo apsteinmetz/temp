@@ -1,0 +1,512 @@
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme_void() +
+theme(legend.position = "none")
+p
+p  + geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+p
+p  + geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+p  + geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# Heatmap
+pal <- wes_palette("Zissou1", 100, type = "continuous")
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme_void() +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# Heatmap
+pal <- wes_palette("Zissou1", 100, type = "discrete")
+continuous
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme_void() +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# Heatmap
+pal <- wes_palette("Zissou1", 100, type = "continuous")
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme_void() +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+#  theme_void() +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# Container Ship
+library(tidyverse)
+library(ggside)
+library(wesanderson)
+# Dummy data
+x <- as.factor(LETTERS[1:20])
+y <- paste0("var", seq(1,10))
+data <- expand.grid(x=x, y=y)
+data$z <- runif(200, 0, 5)
+pal <- wes_palette("Zissou1", 100, type = "continuous")
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# Container Ship
+library(tidyverse)
+library(ggside)
+library(wesanderson)
+# Dummy data
+x <- as.factor(LETTERS[1:20])
+y <- paste0("var", seq(1,10))
+data <- expand.grid(x=x, y=y)
+data$z <- runif(200, 0, 5)
+pal <- wes_palette("Zissou1", 100, type = "continuous")
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+pal <- wes_palette("Zissou1", 10, type = "continuous")
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# heatmap is a local dataset
+p <- ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# heatmap is a local dataset
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# Container Ship
+library(tidyverse)
+library(ggside)
+library(wesanderson)
+# Dummy data
+x <- as.factor(LETTERS[1:20])
+y <- paste0("var", seq(1,10))
+data <- expand.grid(x=x, y=y)
+data$z <- runif(200, 0, 5)
+pal <- wes_palette("Zissou1", 10, type = "continuous")
+# heatmap is a local dataset
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+pal <- wes_palette("Zissou1", 10, type = "continuous")
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+# Container Ship
+library(ggside)
+# Container Ship
+library(ggplot2)
+library(ggside)
+library(wesanderson)
+# Container Ship
+library(ggplot2)
+library(ggside) # lets us customize side panels on plots
+library(wesanderson) # groovy colors
+# Dummy data
+x <- as.factor(LETTERS[1:20])
+y <- paste0("var", seq(1,10))
+data <- expand.grid(x=x, y=y)
+data$z <- runif(200, 0, 5)
+pal <- wes_palette("Zissou1", 10, type = "continuous")
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+theme(legend.position = "none") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 2) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 1.9) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1) +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z),color="black") +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+pal <- wes_palette("Zissou1", 10, type = "continuous")
+ggplot(data, aes(x,y, fill= z),color="black") +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray"))
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1) +
+geom_tile()
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1) +
+geom_tile(color=black)
+ggplot(data, aes(x,y, fill= z,color="black")) +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1) +
+geom_tile(color="black")
+ggplot(data, aes(x,y, fill= z),color="black") +
+# make the overhead view of ship
+geom_tile() +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z),color="black") +
+# make the overhead view of ship
+scale_fill_gradientn(colours = pal) +
+geom_tile() +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z),color="black") +
+# make the overhead view of ship
+scale_fill_gradientn(colours = pal) +
+geom_tile(color = "black") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z)) +
+# make the overhead view of ship
+scale_fill_gradientn(colours = pal) +
+geom_tile(color = "black") +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z)) +
+# make the overhead view of ship
+geom_tile(color = "black") +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data) +
+# make the overhead view of ship
+geom_tile(aes(x,y), fill= z)color = "black") +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data) +
+# make the overhead view of ship
+geom_tile(aes(x,y, fill= z)color = "black") +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data) +
+# make the overhead view of ship
+geom_tile(aes(x,y, fill= z)color = "black") +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
+ggplot(data, aes(x,y, fill= z)) +
+# make the overhead view of ship
+geom_tile(color = "black") +
+scale_fill_gradientn(colours = pal) +
+# now make the top side panel, the shadows.
+geom_xsidecol(aes(x=x,y=z),color="black",fill="black") +
+theme_void() +
+theme(legend.position = "none") +
+theme(plot.background = element_rect(fill = "darkgray"),
+panel.background = element_rect(fill = "darkgray")) +
+# play with these numbers to change the relative size and aspect of each panel.
+theme(ggside.panel.scale.x = 1.8) +
+coord_fixed(ratio = .1)
