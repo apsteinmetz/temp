@@ -6,6 +6,8 @@ library(pdftools)
 
 # load all csv files in 'data' folder and combine them into one dataframe
 setwd("~/R Projects/temp/solar")
+
+# -------------- POWERWALL DATA ----------------
 powerwall_raw <- list.files("data", full.names = TRUE) |> 
   enframe() |> 
   filter(str_detect(value,"powerwall")) |> 
@@ -21,31 +23,27 @@ powerwall <- powerwall_raw |>
   select(-date_time) |> 
   filter(!is.na(solar_energy)) |>
   arrange(date) |> 
-  mutate(net_to_grid = solar_energy - home)
+  mutate(net_to_grid = solar_energy - home) |> 
+  mutate(source = "tesla")
 powerwall
 
 powerwall_long <- powerwall |> 
-  pivot_longer(cols = !date,names_to = "source",values_to = "kWh")
+  pivot_longer(cols =  c(home,from_powerwall,solar_energy,from_grid,to_grid,net_to_grid),names_to = "type",values_to = "kWh")
   
 # plot solar energy
 powerwall_long |> 
-  filter(date >= "2023-04-30") |>
-  filter(source %in% c("solar_energy","net_to_grid","home")) |>
-  ggplot(aes(x=date,y=kWh,color = source)) +
+  filter(type %in% c("solar_energy","net_to_grid","home")) |>
+  ggplot(aes(x=date,y=kWh,color = type)) +
   geom_smooth() +
   geom_hline(yintercept = 0, linetype = "dashed") +
   labs(title = "Solar Energy", x = "Date", y = "Solar Energy (kWh)")
 
 powerwall |> 
-  filter(date >= "2023-04-30") |>
+  filter(date >= "2023-03-31") |>
+  filter(date <= "2024-04-30") |>
   summarise(across(where(is.numeric),\(x) sum(x,na.rm = TRUE)))
 
-# extract table from pdf
-pdf_fnames <- list.files("data", full.names = TRUE) |> 
-  enframe() |> 
-  filter(str_detect(value,"Resi")) |> 
-  pull(value)
-
+# -------------- SUNPOWER DATA ----------------
 
 # determine the row boundaries of table
 locate_row <- function(pdf_text,tag){
@@ -72,11 +70,40 @@ make_table <- function(pdf_fname) {
     ) |>
     select(-dummy) |>
     na.omit() |>
-    # convert date column in format "mmm dd, yyyy" to date type
+    # convert date column in format "mmm dd, yyyy" to date typarre
     mutate(date = as.Date(date, "%b %d, %Y")) |>
     # convert other columns to numeric type
     mutate(across(where(is.character), as.numeric))
   return(energy_table)
 }
 
-make_table(temp)
+# extract table from pdf
+pdf_fnames <- list.files("data", full.names = TRUE) |> 
+  enframe() |> 
+  filter(str_detect(value,"Resi")) |> 
+  pull(value)
+
+sunpower <- pdf_fnames |> 
+  map_dfr(make_table) |> 
+  mutate(net_to_grid = solar_energy - home) |> 
+  arrange(date) |> 
+  filter(!is.na(solar_energy)) |> 
+  select(date,solar_energy,home,net_to_grid) |> 
+  mutate(source = "sunpower")
+
+full_data <- bind_rows(powerwall,sunpower) |> 
+  arrange(date)
+
+# plot solar energy
+full_data |> 
+  ggplot(aes(x=date,y=solar_energy,color = source)) +
+  geom_smooth(se =  FALSE) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Solar Generation", x = "Date", y = "Solar Energy (kWh)")
+
+full_data |> 
+  ggplot(aes(x=date,y=home,color = source)) +
+  geom_smooth() +
+  # geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Home Usage", x = "Date", y = "Home (kWh)")
+
