@@ -132,9 +132,9 @@ fundret <- funds %>%
   #compute rolling 3-year return
   group_by(fund) %>%
   mutate(cumret = cumprod(1 + fund_return_1y)) %>% 
-  mutate(fund_return_3y =  cumret / lag(cumret,3)-1) %>%
+  mutate(fund_return_3y =  (cumret / lag(cumret,3))^(1/3)-1) %>%
   # compute rolling 5-year return
-  mutate(fund_return_5y =  cumret / lag(cumret,5)-1)
+  mutate(fund_return_5y =  (cumret / lag(cumret,5))^(1/5)-1)
 
   
 fundret
@@ -165,23 +165,28 @@ funds_ranked <- fundret %>%
   # tag funds in the second quartile
   mutate(second_quartile = ifelse((rank_1y < 51) & (rank_1y > 25), 1, 0)) %>%
   group_by(fund) %>%
-  mutate(consecutive_years_3 = slide_dbl(second_quartile,sum, .before =2)) %>%
+  mutate(consecutive_years_1 = slide_dbl(second_quartile,sum, .before =0)) %>%
+  mutate(consecutive_years_3 = slide_dbl(second_quartile,sum, .before =2)) %>% 
   mutate(consecutive_years_5 = slide_dbl(second_quartile,sum, .before =4)) %>% 
-  na.omit()
+  na.omit() |> 
+  ungroup()
+
+funds_ranked |> 
+  filter(year ==6) |> 
+  ggplot(aes(fund_return_1y,rank_1y)) + 
+    geom_point() + 
+    geom_point(aes(fund_return_5y,rank_5y),color="red") +
+    geom_point(aes(fund_return_3y,rank_3y),color="blue")
+
+test_1 <- funds_ranked %>% 
+  filter(consecutive_years_1 == 1) %>% 
+  summarise(mean_rank_1y = mean(rank_1y),n=n())
 
 test_3 <- funds_ranked %>% 
-  # ungroup() %>%
   filter(consecutive_years_3 == 3) %>% 
-  summarise(mean_rank_1y = mean(rank_1y), mean_rank_3y = mean(rank_3y))
-
-test_3 %>% 
-  ungroup() %>% 
-  summarise(mean(mean_rank_1y), mean(mean_rank_3y))
+  summarise(mean_rank_1y = mean(rank_1y), mean_rank_3y =mean(rank_3y),n=n())
 
 test_5 <- funds_ranked %>% 
   filter(consecutive_years_5 == 5) %>% 
-  summarise(mean_rank_1y = mean(rank_1y),mean_rank_5y = mean(rank_5y))
+  summarise(mean_rank_1y = mean(rank_1y),mean_rank_5y = mean(rank_5y),n=n())
 
-test_5 %>% 
-  ungroup() %>% 
-  summarise(mean(mean_rank_1y), mean(mean_rank_5y))
